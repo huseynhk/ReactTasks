@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import UserForm from '../components/UserForm'
-
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import UserForm from "../components/UserForm";
 
 const useLocalStorage = (key, initialValue) => {
   const [value, setValue] = useState(() => {
@@ -18,17 +17,16 @@ const useLocalStorage = (key, initialValue) => {
 };
 
 const ShoppingCart = () => {
-  const [items, setItems] = useLocalStorage('cart', []);
-  const [name, setName] = useState('');
+  const [items, setItems] = useLocalStorage("cart", []);
+  const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [color, setColor] = useState('#000000')
-  
+  const [color, setColor] = useState("#000000");
 
   const addItem = () => {
     setItems([...items, { name, price, quantity }]);
-    setName('');
+    setName("");
     setPrice(0);
     setQuantity(1);
     setColor(color);
@@ -38,7 +36,7 @@ const ShoppingCart = () => {
     const newItems = [...items];
     newItems[index] = { name, price, quantity };
     setItems(newItems);
-    setName('');
+    setName("");
     setPrice(0);
     setQuantity(1);
     setColor(color);
@@ -65,23 +63,44 @@ const ShoppingCart = () => {
   };
 
   const totalPrice = items.reduce(
-    (accumulator, currentItem) => accumulator + currentItem.price * currentItem.quantity,
+    (accumulator, currentItem) =>
+      accumulator + currentItem.price * currentItem.quantity,
     0
   );
 
   return (
     <div>
-       <UserForm color={color}/>
+      <UserForm color={color} />
       <h1>Shopping Cart</h1>
       <div>
-        <input type="text" value={name} style={{ color }} onChange={(e) => setName(e.target.value)} />
-        <input type="number" value={price} style={{ color }} onChange={(e) => setPrice(Number(e.target.value))} />
-        <input type="number" value={quantity} style={{ color }} onChange={(e) => setQuantity(Number(e.target.value))} />
-        <input type="color" value={color} style={{ color }} onChange={(e) => setColor(e.target.value)} />
+        <input
+          type="text"
+          value={name}
+          style={{ color }}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="number"
+          value={price}
+          style={{ color }}
+          onChange={(e) => setPrice(Number(e.target.value))}
+        />
+        <input
+          type="number"
+          value={quantity}
+          style={{ color }}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        />
+        <input
+          type="color"
+          value={color}
+          style={{ color }}
+          onChange={(e) => setColor(e.target.value)}
+        />
         <button onClick={addItem}>Add Item</button>
       </div>
-      <table >
-        <thead >
+      <table>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Price</th>
@@ -89,14 +108,16 @@ const ShoppingCart = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody>
           {items.map((item, index) => (
             <tr key={index}>
-              <td style={{ color }}>{item.name} {item.name}</td>
+              <td style={{ color }}>
+                {item.name} {item.name}
+              </td>
               <td style={{ color }}>${item.price.toFixed(2)}</td>
               <td>
                 <button onClick={() => decreaseQuantity(index)}>-</button>
-               <span style={{ color }}> {item.quantity}</span>
+                <span style={{ color }}> {item.quantity}</span>
                 <button onClick={() => increaseQuantity(index)}>+</button>
               </td>
               <td>
@@ -108,12 +129,15 @@ const ShoppingCart = () => {
         </tbody>
       </table>
       <div>
-        <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)} />
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+        />
       </div>
       <p>Total Price: ${totalPrice.toFixed(2)}</p>
       <div>
         <p>Selected Date: {selectedDate.toLocaleDateString()}</p>
-    </div>
+      </div>
     </div>
   );
 };

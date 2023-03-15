@@ -43,21 +43,18 @@
 // //   );
 // // }
 
-
-
-
 // function CardGenerator() {
 
 //     const min = 0;
 //     const max = 12;
 //     const [numCards, setNumCards] = useState(0);
-  
+
 //     const handleNumCardsChange = (event) => {
 //     setNumCards(parseInt(event.target.value));
 //     const numCards = Math.max(min, Math.min(max, Number(event.target.value)));
 //     setNumCards(numCards);
 //     }
-  
+
 //     const generateCards = () => {
 //       const cardNumbers = Array.from({ length: numCards }, (_, i) => i + 1);
 //       return cardNumbers.map((cardNumber) => (
@@ -68,7 +65,7 @@
 //         </Card>
 //       ));
 //     }
-  
+
 //     return (
 //       <div>
 //         <label htmlFor="numCardsInput">Enter a number:</label>

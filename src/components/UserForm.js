@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const UserForm = (props) => {
+  const { color } = props;
 
-  const {color} = props;
-  
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [users, setUsers] = useState([]);
 
-
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
     setUsers(storedUsers);
   }, []);
 
-  
   const handleAddUser = () => {
     const newUser = {
       firstName,
@@ -22,20 +19,20 @@ const UserForm = (props) => {
       id: Date.now(),
     };
     const updatedUsers = [...users, newUser];
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
     setUsers(updatedUsers);
-    setFirstName('');
-    setLastName('');
+    setFirstName("");
+    setLastName("");
   };
 
   const handleDeleteUser = (id) => {
-    const filteredUsers = users.filter(user => user.id !== id);
-    localStorage.setItem('users', JSON.stringify(filteredUsers));
+    const filteredUsers = users.filter((user) => user.id !== id);
+    localStorage.setItem("users", JSON.stringify(filteredUsers));
     setUsers(filteredUsers);
   };
 
   const handleEditUser = (id) => {
-    const editedUser = users.find(user => user.id === id);
+    const editedUser = users.find((user) => user.id === id);
     setFirstName(editedUser.firstName);
     setLastName(editedUser.lastName);
     handleDeleteUser(id);
@@ -46,25 +43,43 @@ const UserForm = (props) => {
       <form>
         <label>
           First Name:
-          <input style={{ color }} type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+          <input
+            style={{ color }}
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
         </label>
         <label>
           Last Name:
-          <input style={{ color }}  type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          <input
+            style={{ color }}
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
         </label>
-        <button type="button" className='btn btn-warning text-white m-1' onClick={handleAddUser}>Add User</button>
+        <button
+          type="button"
+          className="btn btn-warning text-white m-1"
+          onClick={handleAddUser}
+        >
+          Add User
+        </button>
       </form>
       <h2>Users:</h2>
       <ul>
-        {users.map(user => (
-          <li key={user.id}>
+        {users.map((user) => (
+          <li key={user.id} style={{ color }}>
             {user.firstName} {user.lastName}
-            <button type="button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
-            <button type="button" onClick={() => handleEditUser(user.id)}>Edit</button>
+            <button type="button" onClick={() => handleDeleteUser(user.id)}>
+              Delete
+            </button>
+            <button type="button" onClick={() => handleEditUser(user.id)}>
+              Edit
+            </button>
           </li>
-          
         ))}
-        
       </ul>
     </div>
   );
